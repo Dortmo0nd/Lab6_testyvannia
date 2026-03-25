@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - develop
+      - develop  
   pull_request:
     types: [opened, edited, reopened, synchronize, review_requested, submitted]
     branches:
@@ -108,7 +108,6 @@ jobs:
 
       - name: Check merged changes in develop
         run: |
-          git fetch origin develop:develop
-          git checkout develop
+          # Виводимо дерево комітів для Рис. 4.8
           git log --oneline --graph -n 10 > develop_changes.txt
           cat develop_changes.txt
