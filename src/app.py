@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    # Віддаємо фронтенд сторінку
+    # Віддаємо фронтенд сторінку(1)
     return render_template('index.html')
 
 @app.route('/api/data')
