@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyProject - Лабораторна 6</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .container { padding: 20px; border: 1px solid #ccc; border-radius: 10px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Вітаю у MyProject!</h1>
+        <p>Це проста фронтенд частина для перевірки CI/CD.</p>
+        <button onclick="fetchData()">Перевірити API бекенду</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function fetchData() {
+            fetch('/api/data')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.message;
+                })
+                .catch(error => console.error('Помилка:', error));
+        }
+    </script>
+</body>
+</html>
