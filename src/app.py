@@ -10,7 +10,10 @@ def home():
 @app.route('/api/data')
 def get_data():
     # Просте API для перевірки бекенду
-    return {"status": "success", "message": "Привіт від бекенду на Python!"}
+    return {
+        "status": "success",
+        "message": "Привіт від бекенду на Python!"
+    }
 
 if __name__ == '__main__':
     app.run(debug=True)
