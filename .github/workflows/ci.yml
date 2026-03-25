@@ -1,6 +1,9 @@
 name: CI Pipeline
 
 on:
+  push:
+    branches:
+      - develop
   pull_request:
     types: [opened, edited, reopened, synchronize, review_requested, submitted]
     branches:
@@ -48,6 +51,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Code Review Check for develop
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v6
         with:
           script: |
@@ -76,17 +80,18 @@ jobs:
           cloc src/ > cloc-report.txt
           cat cloc-report.txt
 
-      # Крок SonarQube закоментовано
+      # Крок SonarQube закоментовано для успішного проходження CI у хмарі
       # - name: Run SonarQube analysis
-      #   env: 
+      #   env:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   run: | 
+      #   run: |
       #     wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
       #     unzip sonar-scanner-cli-4.8.0.2856-linux.zip
       #     export PATH=$PATH:$(pwd)/sonar-scanner-4.8.0.2856-linux/bin
       #     sonar-scanner
 
       - name: Run flake8 via Reviewdog
+        if: github.event_name == 'pull_request'
         uses: reviewdog/action-flake8@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -94,6 +99,7 @@ jobs:
           level: error
 
       - name: Run Black via Reviewdog
+        if: github.event_name == 'pull_request'
         uses: reviewdog/action-black@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
