@@ -76,7 +76,7 @@ jobs:
           cloc src/ > cloc-report.txt
           cat cloc-report.txt
 
-      # Крок SonarQube закоментовано для успішного проходження CI у хмарі
+      # Крок SonarQube закоментовано
       # - name: Run SonarQube analysis
       #   env: 
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -104,6 +104,5 @@ jobs:
         run: |
           git fetch origin develop:develop
           git checkout develop
-          git pull
-          git log --oneline --graph > develop_changes.txt
+          git log --oneline --graph -n 10 > develop_changes.txt
           cat develop_changes.txt
